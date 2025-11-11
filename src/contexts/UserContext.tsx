@@ -13,8 +13,8 @@ export type User = {
   id: string;
   nome?: string;
   email: string;
-  tipo?: string | null;
-  criado_em?: string | null;
+  celular?: string | null;
+  tema?: string | null;
 } | null;
 
 type UserContextType = {
@@ -34,23 +34,26 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
   // Função para buscar dados do usuário na tabela "usuarios"
   const fetchUserFromDb = async (email: string) => {
+    console.log("Procurando usuário com email:", email);
+
     const { data: usuarioDb, error } = await supabase
       .from("usuarios")
-      .select("id, nome, email, tipo, criado_em")
+      .select("id, nome, email, celular, tema")
       .eq("email", email)
-      .single();
+      .maybeSingle();
 
     if (error) {
       console.error("Erro ao buscar usuário na tabela usuarios:", error);
       setUser(null);
     } else {
+      console.log("Usuário encontrado:", usuarioDb);
       setUser(usuarioDb);
     }
     setLoading(false);
   };
 
   useEffect(() => {
-    // 1️⃣ Carrega usuário inicial
+    // Carrega usuário inicial
     const loadUser = async () => {
       const {
         data: { user: sessionUser },
@@ -66,7 +69,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
     loadUser();
 
-    // 2️⃣ Atualiza o usuário quando a sessão muda
+    // Atualiza o usuário quando a sessão muda
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {

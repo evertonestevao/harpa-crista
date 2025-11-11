@@ -1,7 +1,6 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import MenuInferior from "@/components/ui/MenuInferior";
 import { supabase } from "@/lib/supabaseClient";
 import { useEffect, useState } from "react";
 
@@ -30,6 +29,4 @@ export default function MenuWrapper() {
 
   // 🔹 Oculta se estiver na home ou não logado
   if (pathname === "/" || !isLogged) return null;
-
-  return <MenuInferior />;
 }

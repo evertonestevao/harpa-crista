@@ -19,7 +19,7 @@ export default function AuthCallbackPage() {
 
       if (userError || !user) {
         console.error("Usuário não encontrado:", userError);
-        router.push("/login");
+        router.push("/");
         return;
       }
 
@@ -38,7 +38,7 @@ export default function AuthCallbackPage() {
         console.error("Erro ao salvar usuário:", error);
       }
 
-      router.push("/meusplanos");
+      router.push("/");
     };
 
     syncUser();

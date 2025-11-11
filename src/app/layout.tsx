@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bíblia",
-  description: "Plano de leitura e estudo da Bíblia",
+  title: "Harpa Cristã",
+  description: "Hapa Cristã para louvar",
   manifest: "/manifest.json",
   themeColor: "#0f172a",
   icons: {
