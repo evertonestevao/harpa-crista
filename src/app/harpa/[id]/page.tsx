@@ -8,6 +8,7 @@ import ToneSelector from "@/components/ui/ToneSelector";
 import { useUser } from "@/contexts/UserContext";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import LoginButton from "@/components/ui/LogginButton";
+import Footer from "@/components/ui/Footer"; // importe seu footer
 
 interface HarpaItem {
   hino: string;
@@ -82,68 +83,72 @@ export default function Page() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f8f5] dark:bg-gray-950 flex flex-col">
+    <div className="min-h-screen flex flex-col bg-[#f8f8f5] dark:bg-gray-950">
       <Header />
 
-      <div className="sticky top-15 bg-[#f8f8f5] dark:bg-gray-950 border-gray-300 dark:border-gray-800 w-full max-w-2xl mx-auto px-6 py-3 flex items-center justify-center gap-3">
-        <h1 className="text-xl font-bold text-center">{hino.hino}</h1>
+      {/* Conteúdo principal que cresce */}
+      <main className="flex-1 w-full max-w-2xl mx-auto px-6 py-4">
+        <div className="sticky top-15 bg-[#f8f8f5] dark:bg-gray-950 border-gray-300 dark:border-gray-800 w-full flex items-center justify-center gap-3 px-6 py-3">
+          <h1 className="text-xl font-bold text-center">{hino.hino}</h1>
 
-        {/* Mostra tom ou ToneSelector */}
-        {user?.id ? (
-          <ToneSelector
-            hinoId={String(id)}
-            initialTone={userTone}
-            onToneChange={(tone) => setUserTone(tone)}
-          />
-        ) : (
-          <LoginButton acao="tom" />
-        )}
-      </div>
+          {/* Mostra tom ou ToneSelector */}
+          {user?.id ? (
+            <ToneSelector
+              hinoId={String(id)}
+              initialTone={userTone}
+              onToneChange={(tone) => setUserTone(tone)}
+            />
+          ) : (
+            <LoginButton acao="tom" />
+          )}
+        </div>
 
-      {/* Conteúdo */}
-      <div className="max-w-xl mx-auto w-full p-4 space-y-6 mt-14 leading-7 text-center">
-        {primeiro && (
-          <div
-            className="whitespace-pre-wrap"
-            dangerouslySetInnerHTML={{ __html: primeiro[1] }}
-          />
-        )}
-
-        {hino.coro && (
-          <div className="font-bold italic text-gray-700 dark:text-gray-300">
+        <div className="max-w-xl mx-auto w-full p-4 space-y-6 mt-14 leading-7 text-center">
+          {primeiro && (
             <div
               className="whitespace-pre-wrap"
-              dangerouslySetInnerHTML={{ __html: hino.coro }}
+              dangerouslySetInnerHTML={{ __html: primeiro[1] }}
             />
+          )}
+
+          {hino.coro && (
+            <div className="font-bold italic text-gray-700 dark:text-gray-300">
+              <div
+                className="whitespace-pre-wrap"
+                dangerouslySetInnerHTML={{ __html: hino.coro }}
+              />
+            </div>
+          )}
+
+          {restantes.map(([num, texto]) => (
+            <div
+              key={num}
+              className="whitespace-pre-wrap hover:cursor-pointer"
+              dangerouslySetInnerHTML={{ __html: texto }}
+            />
+          ))}
+
+          {/* Botões de navegação */}
+          <div className="flex justify-between pt-8">
+            <button
+              onClick={irAnterior}
+              disabled={num <= 1}
+              className="px-4 py-2 border rounded disabled:opacity-40 hover:cursor-pointer hover:font-medium"
+            >
+              ← Anterior
+            </button>
+
+            <button
+              onClick={irProximo}
+              className="px-4 py-2 border rounded hover:cursor-pointer hover:font-medium"
+            >
+              Próximo →
+            </button>
           </div>
-        )}
-
-        {restantes.map(([num, texto]) => (
-          <div
-            key={num}
-            className="whitespace-pre-wrap hover:cursor-pointer"
-            dangerouslySetInnerHTML={{ __html: texto }}
-          />
-        ))}
-
-        {/* Botões de navegação */}
-        <div className="flex justify-between pt-8">
-          <button
-            onClick={irAnterior}
-            disabled={num <= 1}
-            className="px-4 py-2 border rounded disabled:opacity-40 hover:cursor-pointer hover:font-medium"
-          >
-            ← Anterior
-          </button>
-
-          <button
-            onClick={irProximo}
-            className="px-4 py-2 border rounded hover:cursor-pointer hover:font-medium"
-          >
-            Próximo →
-          </button>
         </div>
-      </div>
+      </main>
+
+      <Footer />
     </div>
   );
 }

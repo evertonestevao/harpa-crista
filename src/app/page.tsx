@@ -7,6 +7,7 @@ import ToneSelector from "@/components/ui/ToneSelector";
 import { useUser } from "@/contexts/UserContext";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import LoginButton from "@/components/ui/LogginButton";
+import Footer from "@/components/ui/Footer";
 
 interface HarpaData {
   [key: string]: {
@@ -86,7 +87,7 @@ export default function HarpaPage() {
         </div>
       </div>
 
-      <div className="w-full max-w-2xl mt-2 px-6 mx-auto pt-[120px]">
+      <div className="w-full max-w-2xl mt-2 px-6 mx-auto pt-[120px] mb-4">
         <ul className="space-y-2">
           {listaFiltrada.map((num) => (
             <li
@@ -118,6 +119,8 @@ export default function HarpaPage() {
           </p>
         )}
       </div>
+
+      <Footer />
     </div>
   );
 }

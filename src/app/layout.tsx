@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import MenuWrapper from "@/components/ui/MenuWrapper";
 import { UserProvider } from "@/contexts/UserContext";
+import Footer from "@/components/ui/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
