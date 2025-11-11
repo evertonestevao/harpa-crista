@@ -27,14 +27,21 @@ export default function HarpaPage() {
   const [harpa, setHarpa] = useState<HarpaData>({});
   const [pesquisa, setPesquisa] = useState("");
   const [userTones, setUserTones] = useState<Record<string, string>>({});
-  // { "1": "C", "2": "G#" ... }
+  const [loading, setLoading] = useState(true);
 
   // Carrega o hinário
   useEffect(() => {
     const carregar = async () => {
-      const res = await fetch("/hinario/harpa.json");
-      const data = await res.json();
-      setHarpa(data);
+      setLoading(true);
+      try {
+        const res = await fetch("/hinario/harpa.json");
+        const data = await res.json();
+        setHarpa(data);
+      } catch (error) {
+        console.error("Erro ao carregar o hinário:", error);
+      } finally {
+        setLoading(false);
+      }
     };
     carregar();
   }, []);
@@ -55,7 +62,6 @@ export default function HarpaPage() {
       }
 
       if (data) {
-        // Transforma em objeto para acesso rápido por hino_id
         const tonsMap: Record<string, string> = {};
         data.forEach((t: UserTone) => {
           tonsMap[t.hino_id] = t.tom;
@@ -113,10 +119,21 @@ export default function HarpaPage() {
           ))}
         </ul>
 
-        {listaFiltrada.length === 0 && (
+        {loading && (
           <p className="text-sm text-gray-500 mt-4 text-center">
             Carregando hinos...
           </p>
+        )}
+
+        {!loading && listaFiltrada.length === 0 && (
+          <div className="text-center mt-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-sm">
+            <p className="text-gray-500 text-lg mb-2">
+              😔 Nenhum hino encontrado
+            </p>
+            <p className="text-gray-400 text-sm">
+              Tente outro termo de busca para encontrar hinos.
+            </p>
+          </div>
         )}
       </div>
 
