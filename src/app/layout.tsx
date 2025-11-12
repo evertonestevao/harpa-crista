@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import MenuWrapper from "@/components/ui/MenuWrapper";
 import { UserProvider } from "@/contexts/UserContext";
-import Footer from "@/components/ui/Footer";
+import { ThemeProvider } from "@/components/ui/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +27,6 @@ export const metadata: Metadata = {
     apple: "/icons/icon-512x512.png",
   },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -42,13 +41,15 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icons/icon-512x512.png" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased scroll-smooth bg-[#f8f8f5] text-gray-800 dark:bg-[#111418] dark:text-gray-200 transition-colors duration-300`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased scroll-smooth bg-background text-gray-800 dark:bg-[#111418] dark:text-gray-200 transition-colors duration-300`}
       >
-        <UserProvider>
-          {children}
-          <Toaster />
-          <MenuWrapper />
-        </UserProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <UserProvider>
+            {children}
+            <Toaster />
+            <MenuWrapper />
+          </UserProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

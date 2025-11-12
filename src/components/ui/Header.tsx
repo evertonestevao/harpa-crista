@@ -1,21 +1,17 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, Music } from "lucide-react";
-import { cn } from "@/lib/utils";
-// import ThemeToggle from "./ThemeToggle";
-// import LoginButton from "./LoginButtonGoogle";
+import { Music } from "lucide-react";
 import { useUser } from "@/contexts/UserContext";
 import LoginButton from "./LogginButton";
 import LogoutButton from "./LogoutButton";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const { user, loading } = useUser();
 
   return (
-    <header className="fixed top-0 left-0 w-full border-b border-gray-200 shadow-md bg-white z-50">
+    <header className="fixed top-0 left-0 w-full border-b border-border bg-background text-foreground shadow-md z-50 transition-colors duration-300">
       <div className="w-full max-w-2xl mx-auto px-6 py-3 flex items-center justify-between">
         {/* Logo / Título */}
         <Link href="/" className="flex items-center gap-2">
@@ -23,16 +19,18 @@ export default function Header() {
           <span className="text-lg font-semibold">Harpa Cristã</span>
         </Link>
 
-        <nav className="items-center gap-4">
+        <nav className="flex items-center gap-3">
           {!loading && user ? (
-            <div className="flex items-center gap-2 relative">
-              <span className="text-sm text-gray-700 font-medium">
-                Olá, {user.nome}
-              </span>
+            <div className="flex items-center gap-3">
+              <span className="text-sm font-medium">{user.nome}</span>
+              <ThemeToggle />
               <LogoutButton />
             </div>
           ) : (
-            <LoginButton acao="login" />
+            <div className="flex items-center gap-3">
+              <LoginButton acao="login" />
+              <ThemeToggle />
+            </div>
           )}
         </nav>
       </div>
