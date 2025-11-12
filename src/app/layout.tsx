@@ -1,4 +1,3 @@
-// app/layout.tsx ou globals/layout.tsx
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
@@ -19,7 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Harpa Cristã",
-  description: "Hapa Cristã para louvar",
+  description: "Harpa Cristã para louvar",
   manifest: "/manifest.json",
   themeColor: "#0f172a",
   icons: {
@@ -27,11 +26,12 @@ export const metadata: Metadata = {
     apple: "/icons/icon-512x512.png",
   },
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta
