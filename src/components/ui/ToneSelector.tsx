@@ -108,8 +108,8 @@ export default function ToneSelector({
         className={`${
           selectedTone
             ? "bg-cyan-500 hover:bg-cyan-600 text-white"
-            : "bg-gray-200 hover:bg-gray-400 text-gray-900"
-        } hover:cursor-pointer flex items-center gap-1 select-none`}
+            : "bg-gray-200 hover:bg-gray-400 text-gray-900 dark:bg-gray-700 dark:text-gray-100"
+        } hover:cursor-pointer flex items-center gap-1 select-none `}
       >
         {selectedTone ? (
           <span>{selectedTone}</span>

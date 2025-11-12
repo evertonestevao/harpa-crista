@@ -98,7 +98,7 @@ export default function HarpaPage() {
           {listaFiltrada.map((num) => (
             <li
               key={num}
-              className="border p-2 rounded-2xl hover:cursor-pointer hover:bg-gray-100 flex justify-between items-center"
+              className="border p-2 rounded-2xl hover:cursor-pointer hover:bg-gray-200 hover:dark:bg-gray-900 flex justify-between items-center"
             >
               <Link href={`/harpa/${num}`} className="flex-1 ml-1">
                 {harpa[num].hino}

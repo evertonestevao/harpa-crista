@@ -22,7 +22,7 @@ export default function Header() {
         <nav className="flex items-center gap-3">
           {!loading && user ? (
             <div className="flex items-center gap-3">
-              <span className="text-sm font-medium">{user.nome}</span>
+              <span className="text-sm font-medium">Olá, {user.nome}</span>
               <ThemeToggle />
               <LogoutButton />
             </div>

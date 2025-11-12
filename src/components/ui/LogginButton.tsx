@@ -96,17 +96,15 @@ export default function LoginButton({ acao = "login" }: LoginButtonProps) {
     }
 
     if (authData.user?.id) {
-      await supabase
-        .from("usuarios")
-        .insert([
-          {
-            id: authData.user.id,
-            email: authData.user.email,
-            nome,
-            celular,
-            tema: "claro",
-          },
-        ]);
+      await supabase.from("usuarios").insert([
+        {
+          id: authData.user.id,
+          email: authData.user.email,
+          nome,
+          celular,
+          tema: "claro",
+        },
+      ]);
     }
 
     setShowModal(false);
@@ -125,7 +123,7 @@ export default function LoginButton({ acao = "login" }: LoginButtonProps) {
       return (
         <Badge
           onClick={() => setShowModal(true)}
-          className="bg-gray-200 hover:bg-gray-400 text-gray-900 hover:cursor-pointer px-3 py-1 rounded-xl"
+          className="bg-gray-200 hover:bg-gray-400 text-gray-900 dark:bg-gray-700 dark:text-gray-100 hover:cursor-pointer px-3 py-1 rounded-xl"
         >
           Tom
         </Badge>
